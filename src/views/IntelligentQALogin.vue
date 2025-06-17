@@ -2,7 +2,7 @@
   <div class="page-container">
     <!-- 侧边栏 -->
     <div class="sidebar" :class="{ collapsed: isCollapsed }">
-      <div class="sidebar-item" @click="toggleSidebar">≡</div>
+      <div class="sidebar-item" @click="toggleSidebar"><div class="sidebar-icon"><img src="../assets/images/sidebar侧边栏.png"></div></div>
       <div v-if="!isCollapsed" class="sidebar-title" @click="newConversation">新建对话</div>
       <div v-if="!isCollapsed" class="sidebar-title" @click="toggleHistoryList">
         历史对话
@@ -926,7 +926,6 @@ body {
   position: static;
   float: left;
   width: 200px;
-  height: 930px;
   background: #f8f9fa;
   border-right: 1px solid #e0e0e0;
   transition: all 0.3s ease;
@@ -990,6 +989,41 @@ body {
 
 .sidebar.collapsed .sidebar-item:not(:first-child) {
   display: none;
+}
+
+/* 侧边栏图标固定大小 */
+.sidebar-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+}
+
+.sidebar-icon img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain; /* 保持图片比例，防止变形 */
+  flex-shrink: 0; /* 防止图片被压缩 */
+}
+
+/* 修改第一个侧边栏项目的布局 */
+.sidebar-item:first-child {
+  background-color: #e9f0f8;
+  color: #2c78c5;
+  font-size: 18px;
+  justify-content: flex-start;
+  margin-left: -10px;; 
+}
+
+.sidebar:not(.collapsed) .sidebar-item {
+  justify-content: flex-start; 
+  padding-right: 20px;
+}
+
+.sidebar:not(.collapsed) .sidebar-item:first-child {
+  justify-content: flex-start; 
+  padding-right: 20px; 
 }
 
 .history-list {
@@ -1057,9 +1091,9 @@ body {
 .main-content {
   flex: 1;
   padding: 40px 20px 20px 20px;
-  min-height: 500px;
   background: #f8f8f8;
   position: relative;
+  height: 100vh;
 }
 
 /* 对话框容器 */
@@ -1078,7 +1112,7 @@ body {
 
 /* 聊天记录区域 */
 .chat-container {
-  height: 560px;
+  height: 300px;
   overflow-y: auto;
   background: white;
   border-radius: 12px;
@@ -1532,6 +1566,125 @@ body {
 
 .think-content:empty {
   min-height: 24px;
+}
+
+/* ========== 移动端响应式，仅在小屏幕下生效 ========== */
+@media (max-width: 768px) {
+  .sidebar:not(.collapsed) {
+    width: 200px;  /* 展开宽度 */
+  }
+
+  /* content-container 左侧留出 sidebar 空间 */
+  .content-container {
+    margin-left: 50px !important;
+    transition: margin-left 0.3s ease;
+  }
+  .sidebar:not(.collapsed) ~ .content-container {
+    margin-left: 200px !important;
+  }
+
+  /* 其余内部微调保持原有，只是 padding/margin */
+  .main-content {
+    padding: 20px 10px 10px 10px;
+  }
+  .dialog-wrapper {
+    max-width: 100%;
+    margin: 0;
+  }
+  .dialog-greeting {
+    margin-bottom: 20px;
+    font-size: 1.2em;
+  }
+  .chat-container {
+    padding: 15px;
+    margin-bottom: 15px;
+    min-height: 360px;
+    height: 80%;
+  }
+  .main-dialog {
+    padding: 15px;
+    height: 150px;
+  }
+  .action-container {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    margin-top: 15px;
+  }
+  .tags-group {
+    gap: 10px;
+    flex-wrap: wrap;
+    height:30px;
+  }
+  .start-button {
+    width: 100%;
+    padding: 10px;
+  }
+  .question-title {
+    font-size: 14px;
+  }
+  /* 弹窗宽度百分比，防止超出 */
+  .feedback-modal,
+  .login-prompt-content {
+    width: 90%;
+    max-width: 90%;
+  }
+  .feedback-modal-body textarea {
+    height: 120px;
+  }
+
+  .tag-item {
+  border-radius: 8px;
+  font-size: 12px;
+  line-height: 12px;
+  height:30px
+  }
+
+  .tag-item.selected {
+    box-shadow: 0 2px 6px rgba(128,0,128,0.2);
+  }
+}
+
+@media (max-width: 480px) {
+  /* 调整展开宽度，如需更小也可自行修改 */
+  .sidebar:not(.collapsed) {
+    width: 180px;
+  }
+  /* 重新设置 content-container margin-left */
+  .content-container {
+    margin-left: 50px !important;
+  }
+  .sidebar:not(.collapsed) ~ .content-container {
+    margin-left: 180px !important;
+  }
+  .sidebar-item {
+    padding: 12px 16px;
+    font-size: 14px;
+  }
+  .dialog-greeting {
+    font-size: 1.1em;
+  }
+  .question-title {
+    font-size: 13px;
+  }
+  .tags-group {
+    gap: 8px;
+  }
+  .start-button {
+    padding: 8px;
+    font-size: 14px;
+  }
+  .chat-container {
+    min-height: 300px;
+    height: 55vh;
+  }
+  .main-dialog {
+    height: auto;
+  }
+
+  .feedback-modal-body textarea {
+    height: 100px;
+  }
 }
 
 </style>

@@ -1496,6 +1496,7 @@ section:nth-child(even) {
     gap: 15px;
     padding: 10px 0;
   }
+  
   .application-item {
     flex: 1 1 45%;
     max-width: 45%;
@@ -1511,6 +1512,7 @@ section:nth-child(even) {
     width: 100%;
     height: auto;
   }
+  
   .news-items-container {
     transform: none !important;
     position: static !important;
@@ -1520,6 +1522,7 @@ section:nth-child(even) {
     gap: 20px;
     padding: 0;
   }
+  
   .news-item {
     flex: 1 1 100%;
     max-width: 100%;
@@ -1531,61 +1534,281 @@ section:nth-child(even) {
     height: 180px;
   }
 
-
   .capability-card, .application-item {
     width: 160px;
   }
-  
+
   .capability-detail, .application-detail {
     flex-direction: column;
     padding: 20px;
     height: auto;
     min-height: 500px;
   }
-  
-  .detail-left, .detail-right, 
-  .application-detail .detail-left, 
+
+  .detail-left, .detail-right,
+  .application-detail .detail-left,
   .application-detail .detail-right {
     width: 100%;
     height: auto;
   }
-  
+
   .detail-right {
     margin-top: 20px;
     height: 250px;
   }
-  
+
   .application-detail .detail-right {
     height: 250px;
   }
-  
+
   .detail-description,
   .application-detail .detail-description {
     max-height: 220px;
   }
-  
+
   .news-items {
     width: 70%;
   }
-  
+
   .qualification-item {
     flex: 1 1 45%;
     max-width: 45%;
   }
-  
+
   .banner-title {
     flex-direction: column;
     gap: 10px;
     align-items: flex-start;
     margin: 10px 0;
   }
-  
+
   .banner-content {
     margin-left: 5%;
   }
-  
+
   .banner-title h1 {
     font-size: 26px;
+  }
+}
+
+/* 小屏幕手机设备响应式调整 */
+@media (max-width: 480px) {
+  /* 基础布局调整 */
+  .capability-cards {
+    flex-direction: column;
+    gap: 20px;
+    padding: 0 10px;
+    width: 80%;
+  }
+
+  .capability-card {
+    flex: 1 1 100%;
+    max-width: 100%;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .card-icon {
+    width: 200px;
+    height: 200px;
+  }
+
+  .application-items {
+    flex-direction: column;
+    gap: 20px;
+    padding: 10px;
+    width:80%;
+  }
+
+  .application-item {
+    flex: 1 1 100%;
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .item-icon {
+    width: 200px;
+    height: 200px;
+  }
+
+  /* 详情页面调整 */
+  .capability-detail, .application-detail {
+    padding: 15px;
+    min-height: 400px;
+    margin: 10px;
+    border-radius: 8px;
+  }
+
+  .detail-left, .detail-right,
+  .application-detail .detail-left,
+  .application-detail .detail-right {
+    width: 100%;
+    margin: 0;
+  }
+
+  .detail-right {
+    margin-top: 15px;
+    height: 200px;
+  }
+
+  .application-detail .detail-right {
+    height: 200px;
+  }
+
+  .detail-description,
+  .application-detail .detail-description {
+    max-height: 180px;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  /* 新闻区域调整 */
+  .news-items {
+    width: 95%;
+    padding: 0 10px;
+  }
+
+  .news-items-container {
+    gap: 15px;
+    padding: 0 5px;
+  }
+
+  .news-item {
+    margin-bottom: 15px;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .news-image {
+    height: 150px;
+    width: 100%;
+    object-fit: cover;
+  }
+
+  /* 资质区域调整 */
+  .qualification-item {
+    flex: 1 1 100%;
+    max-width: 100%;
+    margin-bottom: 10px;
+  }
+
+  /* 横幅区域调整 */
+  .banner-content {
+    margin-left: 3%;
+    margin-right: 3%;
+    padding: 0 10px;
+  }
+
+  .banner-title {
+    gap: 8px;
+    margin: 8px 0;
+  }
+
+  .banner-title h1 {
+    font-size: 22px;
+    line-height: 1.3;
+    text-align: center;
+    width: 100%;
+  }
+
+  /* 文本内容调整 */
+  .capability-card h3,
+  .application-item h3 {
+    font-size: 16px;
+    margin: 8px 0;
+    text-align: center;
+  }
+
+  .capability-card p,
+  .application-item p {
+    font-size: 13px;
+    line-height: 1.4;
+    text-align: center;
+    padding: 0 5px;
+  }
+
+  /* 按钮和链接调整 */
+  .btn, .button {
+    padding: 8px 16px;
+    font-size: 14px;
+    margin: 5px;
+    border-radius: 6px;
+  }
+
+  /* 通用间距调整 */
+  .container {
+    padding: 0 10px;
+    margin: 0 auto;
+  }
+
+  /* 导航和菜单调整 */
+  .nav, .menu {
+    flex-direction: column;
+    padding: 10px;
+  }
+
+  .nav-item, .menu-item {
+    width: 100%;
+    text-align: center;
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+  }
+
+  .nav-item:last-child, .menu-item:last-child {
+    border-bottom: none;
+  }
+}
+
+/* 超小屏幕设备响应式调整 */
+@media (max-width: 320px) {
+  /* 进一步压缩间距 */
+  .capability-detail, .application-detail {
+    padding: 10px;
+    margin: 5px;
+    min-height: 350px;
+  }
+
+  .detail-right {
+    height: 180px;
+  }
+
+  .application-detail .detail-right {
+    height: 180px;
+  }
+
+  .banner-title h1 {
+    font-size: 20px;
+  }
+
+  .news-image {
+    height: 120px;
+  }
+
+  .detail-description,
+  .application-detail .detail-description {
+    max-height: 150px;
+    font-size: 13px;
+  }
+
+  .capability-card h3,
+  .application-item h3 {
+    font-size: 15px;
+  }
+
+  .capability-card p,
+  .application-item p {
+    font-size: 12px;
+  }
+
+  .btn, .button {
+    padding: 6px 12px;
+    font-size: 13px;
+  }
+
+  .banner-content {
+    margin-left: 2%;
+    margin-right: 2%;
+    padding: 0 5px;
   }
 }
 </style> 

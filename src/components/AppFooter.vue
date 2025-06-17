@@ -176,7 +176,6 @@ export default {
   }
   
   .footer-left {
-    margin:0 0 0 20%;
     justify-content: center;
     gap: 40px;
   }
@@ -213,18 +212,16 @@ export default {
   }
   
   .footer-left {
-    display:flex;
-    flex-direction:row;
+    flex-direction: row;
     align-items: center;
-    justify-content: flex-start;
-    gap: 25px;
-    margin:0 0 0 15%;
+    gap: 5%;
+    width: 100%;
   }
   
   .footer-department {
     align-items: center;
     text-align: center;
-    min-width: auto;
+    width:45%;
   }
   
   .footer-logo p {
@@ -244,11 +241,12 @@ export default {
     flex-direction: column;
     gap: 20px;
     width: 100%;
-    margin:0 0 0 35%;
   }
   
   .footer-section {
     text-align: center;
+    width:80%;
+    margin-left: 20%;
   }
   
   .footer-section h3 {

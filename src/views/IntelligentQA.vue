@@ -2,7 +2,7 @@
   <div class="page-container">
     <!-- 侧边栏 -->
     <div class="sidebar" :class="{ collapsed: isCollapsed }">
-      <div class="sidebar-item" @click="toggleSidebar">≡</div>
+      <div class="sidebar-item" @click="toggleSidebar"><div class="sidebar-icon"><img src="../assets/images/sidebar侧边栏.png"></div></div>
       <div class="sidebar-item" @click="showLoginPrompt">新建对话</div>
       <div class="sidebar-item" @click="showLoginPrompt">历史对话</div>
     </div>
@@ -229,6 +229,41 @@ html, body, #app {
   display: none;
 }
 
+/* 侧边栏图标固定大小 */
+.sidebar-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+}
+
+.sidebar-icon img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain; /* 保持图片比例，防止变形 */
+  flex-shrink: 0; /* 防止图片被压缩 */
+}
+
+/* 修改第一个侧边栏项目的布局 */
+.sidebar-item:first-child {
+  background-color: #e9f0f8;
+  color: #2c78c5;
+  font-size: 18px;
+  justify-content: flex-start;
+  margin-left: -8px;; 
+}
+
+.sidebar:not(.collapsed) .sidebar-item {
+  justify-content: flex-start; 
+  padding-right: 20px;
+}
+
+.sidebar:not(.collapsed) .sidebar-item:first-child {
+  justify-content: flex-start; 
+  padding-right: 20px; 
+}
+
 /* 内容区域调整 */
 .content-container {
   transition: margin-left 0.3s ease;
@@ -259,7 +294,7 @@ html, body, #app {
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   padding: 40px;
-  height: 360px;
+  height: 300px;
   overflow-y: auto;
   box-sizing: border-box;
   position: relative;
@@ -499,7 +534,7 @@ html, body, #app {
   .chat-container {
     padding: 15px;
     margin-bottom: 15px;
-    min-height: 400px;
+    min-height: 360px;
     height: 80%;
   }
   .main-dialog {
@@ -535,10 +570,11 @@ html, body, #app {
   }
 
   .tag-item {
-  border-radius: 8px;
-  font-size: 12px;
-  line-height: 12px;
-  height:30px
+    padding:0 4px;
+    border-radius: 8px;
+    font-size: 12px;
+    line-height: 30px;
+    height:30px;
   }
 
   .tag-item.selected {
@@ -585,6 +621,10 @@ html, body, #app {
 
   .feedback-modal-body textarea {
     height: 100px;
+  }
+
+  .sidebar-item:first-child {
+    margin-left: -4px; 
   }
 }
 
