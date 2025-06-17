@@ -176,6 +176,7 @@ export default {
   }
   
   .footer-left {
+    margin:0 0 0 20%;
     justify-content: center;
     gap: 40px;
   }
@@ -212,9 +213,12 @@ export default {
   }
   
   .footer-left {
-    flex-direction: column;
+    display:flex;
+    flex-direction:row;
     align-items: center;
+    justify-content: flex-start;
     gap: 25px;
+    margin:0 0 0 15%;
   }
   
   .footer-department {
@@ -240,6 +244,7 @@ export default {
     flex-direction: column;
     gap: 20px;
     width: 100%;
+    margin:0 0 0 35%;
   }
   
   .footer-section {

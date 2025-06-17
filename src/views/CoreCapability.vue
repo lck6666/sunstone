@@ -1455,21 +1455,21 @@ section:nth-child(even) {
 
 /* 响应式调整 */
 @media (max-width: 768px) {
-  /* 隐藏核心能力、场景应用、新闻模块的左右切换箭头 */
+  /* 隐藏左右切换箭头 */
   .capability-carousel .carousel-nav,
   .application-carousel .carousel-nav,
   .news-carousel .news-nav {
     display: none !important;
   }
 
-  /* 核心能力卡片去掉 active 高亮 */
+  /* 去掉 active 高亮 */
   .capability-card.active, .capability-card:hover {
     background-color: white !important;
     color: #333 !important;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05) !important;
     transform: none !important;
   }
-  /* 场景应用卡片去掉 active 高亮 */
+
   .application-item.active, .application-item:hover {
     background-color: white !important;
     color: #333 !important;
@@ -1477,7 +1477,6 @@ section:nth-child(even) {
     transform: none !important;
   }
 
-    /* 核心能力卡片：弹性布局，自动换行，均匀分布 */
   .capability-cards {
     display: flex;
     flex-wrap: wrap;
@@ -1490,7 +1489,6 @@ section:nth-child(even) {
     max-width: 45%;
   }
 
-  /* 场景应用项：弹性布局，自动换行，均匀分布 */
   .application-items {
     display: flex;
     flex-wrap: wrap;
@@ -1503,9 +1501,7 @@ section:nth-child(even) {
     max-width: 45%;
   }
 
-    /* 新闻项：取消横向滚动，改成多列弹性布局 */
   .news-items {
-    /* 取消 overflow hidden 导致 clipping 的行为，改用自动换行 */
     overflow: visible;
     display: flex;
     flex-wrap: wrap;
@@ -1516,7 +1512,6 @@ section:nth-child(even) {
     height: auto;
   }
   .news-items-container {
-    /* 取消 transform 滑动逻辑，直接静态布局 */
     transform: none !important;
     position: static !important;
     display: flex;
@@ -1531,7 +1526,7 @@ section:nth-child(even) {
     margin-bottom: 20px;
     height: auto;
   }
-  /* 调整新闻图片高度以适应自适应布局 */
+
   .news-image {
     height: 180px;
   }
@@ -1573,7 +1568,6 @@ section:nth-child(even) {
     width: 70%;
   }
   
-/* 资质模块：卡片宽度调整 */
   .qualification-item {
     flex: 1 1 45%;
     max-width: 45%;

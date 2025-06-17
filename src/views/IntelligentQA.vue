@@ -238,7 +238,7 @@ html, body, #app {
 .main-content {
   flex: 1;
   padding: 40px 20px 20px 20px;
-  min-height: 500px;
+  height:100vh;
   background: #f8f8f8;
 }
 
@@ -285,6 +285,7 @@ html, body, #app {
   justify-content: space-between;
   align-items: center;
   margin-top: 35px;
+  height: auto;
 }
 
 .tags-group {
@@ -498,10 +499,12 @@ html, body, #app {
   .chat-container {
     padding: 15px;
     margin-bottom: 15px;
-    height: calc(100vh - 200px);
+    min-height: 400px;
+    height: 80%;
   }
   .main-dialog {
     padding: 15px;
+    height: 150px;
   }
   .action-container {
     flex-direction: column;
@@ -512,6 +515,7 @@ html, body, #app {
   .tags-group {
     gap: 10px;
     flex-wrap: wrap;
+    height:30px;
   }
   .start-button {
     width: 100%;
@@ -528,6 +532,17 @@ html, body, #app {
   }
   .feedback-modal-body textarea {
     height: 120px;
+  }
+
+  .tag-item {
+  border-radius: 8px;
+  font-size: 12px;
+  line-height: 12px;
+  height:30px
+  }
+
+  .tag-item.selected {
+    box-shadow: 0 2px 6px rgba(128,0,128,0.2);
   }
 }
 
@@ -561,8 +576,13 @@ html, body, #app {
     font-size: 14px;
   }
   .chat-container {
-    height: calc(100vh - 180px);
+    min-height: 300px;
+    height: 55vh;
   }
+  .main-dialog {
+    height: auto;
+  }
+
   .feedback-modal-body textarea {
     height: 100px;
   }
