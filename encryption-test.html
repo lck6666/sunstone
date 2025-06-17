@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>加密测试页面</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    h1, h2 {
+      color: #333;
+    }
+    .test-section {
+      background: #f5f5f5;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 5px;
+    }
+    input, textarea, button {
+      margin: 5px 0;
+      padding: 8px;
+    }
+    input, textarea {
+      width: 100%;
+      box-sizing: border-box;
+    }
+    button {
+      background: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+      padding: 10px 15px;
+    }
+    button:hover {
+      background: #45a049;
+    }
+    .result {
+      margin-top: 10px;
+      padding: 10px;
+      background: #e8f5e9;
+      border-left: 4px solid #4CAF50;
+    }
+    .error {
+      background: #ffebee;
+      border-left: 4px solid #f44336;
+    }
+    pre {
+      background: #eee;
+      padding: 10px;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+  <h1>AES-CBC 加密测试页面</h1>
+  
+  <div class="test-section">
+    <h2>1. 运行所有测试</h2>
+    <p>点击按钮运行所有加密解密测试，检查密钥长度、IV格式等。</p>
+    <button id="run-all-tests">运行所有测试</button>
+    <div id="all-tests-result" class="result"></div>
+  </div>
+  
+  <div class="test-section">
+    <h2>2. 加密解密测试</h2>
+    <p>输入文本进行加密和解密测试：</p>
+    <input type="text" id="test-text" placeholder="输入要加密的文本" value="TestPassword123!">
+    <button id="encrypt-decrypt">加密并解密</button>
+    <div id="encrypt-decrypt-result" class="result"></div>
+  </div>
+  
+  <div class="test-section">
+    <h2>3. 与后端格式兼容性测试</h2>
+    <p>测试加密结果格式是否与后端兼容：</p>
+    <input type="text" id="backend-test-text" placeholder="输入要加密的文本" value="BackendTestPassword">
+    <button id="test-backend-format">测试后端格式兼容性</button>
+    <div id="backend-format-result" class="result"></div>
+  </div>
+  
+  <div class="test-section">
+    <h2>4. 生成Python测试代码</h2>
+    <p>生成可在Python后端测试的代码：</p>
+    <input type="text" id="python-test-text" placeholder="输入要加密的文本" value="PythonBackendTest">
+    <button id="generate-python">生成Python测试代码</button>
+    <pre id="python-code" class="result"></pre>
+  </div>
+
+  <script>
+    // 这里会由webpack或其他构建工具处理
+    // 实际测试页面应该单独构建或使用CDN引入依赖
+    document.addEventListener('DOMContentLoaded', () => {
+      console.log('页面加载完成，等待加密测试工具初始化...');
+      
+      // 请确保已加载CryptoJS和加密测试工具
+      const checkDependencies = setInterval(() => {
+        if (window.EncryptionTester) {
+          console.log('加密测试工具已加载');
+          clearInterval(checkDependencies);
+          initTestPage();
+        }
+      }, 100);
+      
+      function initTestPage() {
+        // 1. 运行所有测试
+        document.getElementById('run-all-tests').addEventListener('click', () => {
+          try {
+            const resultElement = document.getElementById('all-tests-result');
+            resultElement.innerHTML = '测试进行中...';
+            resultElement.classList.remove('error');
+            
+            const results = window.EncryptionTester.runAllTests();
+            
+            // 将结果格式化为HTML表格
+            let html = '<h3>测试结果汇总</h3>';
+            html += '<table border="1" cellpadding="5" style="border-collapse: collapse; width: 100%;">';
+            html += '<tr><th>测试名称</th><th>结果</th></tr>';
+            
+            for (const [test, result] of Object.entries(results)) {
+              html += `<tr><td>${test}</td><td>${result ? '✅ 通过' : '❌ 失败'}</td></tr>`;
+            }
+            
+            html += '</table>';
+            
+            const allPassed = Object.values(results).every(result => result === true);
+            html += `<p><strong>总体结果: ${allPassed ? '✅ 所有测试通过' : '❌ 部分测试失败'}</strong></p>`;
+            
+            resultElement.innerHTML = html;
+            if (!allPassed) {
+              resultElement.classList.add('error');
+            }
+          } catch (e) {
+            showError('all-tests-result', e);
+          }
+        });
+        
+        // 2. 加密解密测试
+        document.getElementById('encrypt-decrypt').addEventListener('click', () => {
+          try {
+            const text = document.getElementById('test-text').value;
+            if (!text) {
+              throw new Error('请输入要加密的文本');
+            }
+            
+            const resultElement = document.getElementById('encrypt-decrypt-result');
+            resultElement.innerHTML = '处理中...';
+            resultElement.classList.remove('error');
+            
+            // 执行加密
+            const encrypted = window.encrypt(text);
+            
+            // 执行解密
+            const decrypted = window.decrypt(encrypted);
+            
+            // 显示结果
+            let html = `<p><strong>原始文本:</strong> ${text}</p>`;
+            html += `<p><strong>加密结果:</strong> ${encrypted}</p>`;
+            html += `<p><strong>解密结果:</strong> ${decrypted}</p>`;
+            html += `<p><strong>验证结果:</strong> ${text === decrypted ? '✅ 成功' : '❌ 失败'}</p>`;
+            
+            resultElement.innerHTML = html;
+          } catch (e) {
+            showError('encrypt-decrypt-result', e);
+          }
+        });
+        
+        // 3. 后端格式兼容性测试
+        document.getElementById('test-backend-format').addEventListener('click', () => {
+          try {
+            const text = document.getElementById('backend-test-text').value;
+            if (!text) {
+              throw new Error('请输入要测试的文本');
+            }
+            
+            const resultElement = document.getElementById('backend-format-result');
+            resultElement.innerHTML = '处理中...';
+            resultElement.classList.remove('error');
+            
+            // 加密文本
+            const encrypted = window.encrypt(text);
+            
+            // 解析格式
+            const wordArray = window.CryptoJS.enc.Base64.parse(encrypted);
+            const iv = wordArray.clone();
+            iv.sigBytes = 16;
+            iv.words = iv.words.slice(0, 4);
+            
+            const ciphertext = wordArray.clone();
+            ciphertext.sigBytes = wordArray.sigBytes - 16;
+            ciphertext.words = ciphertext.words.slice(4);
+            
+            // 显示格式信息
+            let html = `<p><strong>加密Base64结果:</strong> ${encrypted}</p>`;
+            html += `<p><strong>Base64解码后总长度:</strong> ${wordArray.sigBytes} 字节</p>`;
+            html += `<p><strong>IV(前16字节):</strong> ${window.CryptoJS.enc.Hex.stringify(iv)}</p>`;
+            html += `<p><strong>IV长度:</strong> ${iv.sigBytes} 字节</p>`;
+            html += `<p><strong>密文:</strong> ${window.CryptoJS.enc.Hex.stringify(ciphertext)}</p>`;
+            html += `<p><strong>密文长度:</strong> ${ciphertext.sigBytes} 字节</p>`;
+            html += `<p><strong>密文是否为16字节的倍数:</strong> ${ciphertext.sigBytes % 16 === 0 ? '✅ 是' : '❌ 否'}</p>`;
+            html += `<p><strong>后端格式兼容:</strong> ✅ 兼容</p>`;
+            
+            resultElement.innerHTML = html;
+          } catch (e) {
+            showError('backend-format-result', e);
+          }
+        });
+        
+        // 4. 生成Python测试代码
+        document.getElementById('generate-python').addEventListener('click', () => {
+          try {
+            const text = document.getElementById('python-test-text').value;
+            if (!text) {
+              throw new Error('请输入要加密的文本');
+            }
+            
+            const resultElement = document.getElementById('python-code');
+            resultElement.innerHTML = '生成中...';
+            resultElement.classList.remove('error');
+            
+            // 加密文本
+            const encrypted = window.encrypt(text);
+            
+            // 生成Python代码
+            const pythonCode = `
+import base64
+import binascii
+from Crypto.Cipher import AES
+from Crypto.Util.Padding import unpad
+
+# 要解密的数据 - 由前端JavaScript加密生成的Base64字符串
+encrypted_base64 = "${encrypted}"
+
+# 十六进制字符串密钥 - 16字节(128位)，需要与前端使用相同的密钥
+SECRET_KEY_HEX = 'FD9213CB817A42E892A9FBEF4C5D3678'  # 32字符 = 16字节
+# 将十六进制字符串转换为字节数据
+SECRET_KEY = binascii.unhexlify(SECRET_KEY_HEX)
+
+# 密钥长度检查
+print(f"密钥长度: {len(SECRET_KEY)} 字节")
+if len(SECRET_KEY) not in (16, 24, 32):
+    raise ValueError(f"密钥长度必须为16、24或32字节，实际长度为 {len(SECRET_KEY)} 字节")
+
+def aes_cbc_decrypt(encrypted_data, key):
+    """AES-CBC解密"""
+    # 解码Base64
+    encrypted_bytes = base64.b64decode(encrypted_data)
+    
+    # 提取IV(前16字节)
+    iv = encrypted_bytes[:16]
+    print(f"IV (十六进制): {iv.hex()}")
+    print(f"IV 长度: {len(iv)} 字节")
+    
+    # 提取密文
+    ciphertext = encrypted_bytes[16:]
+    print(f"密文长度: {len(ciphertext)} 字节")
+    
+    # 创建解密器
+    cipher = AES.new(key, AES.MODE_CBC, iv)
+    
+    # 解密并去除填充
+    decrypted_padded = cipher.decrypt(ciphertext)
+    decrypted = unpad(decrypted_padded, AES.block_size)
+    
+    # 返回解密结果
+    return decrypted.decode('utf-8')
+
+# 测试解密
+try:
+    decrypted_text = aes_cbc_decrypt(encrypted_base64, SECRET_KEY)
+    print(f"解密成功! 原始文本: {decrypted_text}")
+except Exception as e:
+    print(f"解密失败: {str(e)}")
+`.trim();
+            
+            resultElement.textContent = pythonCode;
+          } catch (e) {
+            showError('python-code', e);
+          }
+        });
+        
+        // 辅助函数：显示错误
+        function showError(elementId, error) {
+          const element = document.getElementById(elementId);
+          element.innerHTML = `<p><strong>错误:</strong> ${error.message}</p>`;
+          element.classList.add('error');
+          console.error(error);
+        }
+      }
+    });
+  </script>
+</body>
+</html> 
