@@ -84,7 +84,9 @@
               <div class="item-icon">
                 <img :src="item.icon">
               </div>
-              <h3>{{ item.title }}</h3>
+              <div class="item-title">
+                <h3>{{ item.title }}</h3>
+              </div>
             </div>
           </div>
           <div class="carousel-nav right" @click="nextApplication">
@@ -993,7 +995,7 @@ section:nth-child(even) {
 
 .detail-image {
   width: 100%;
-  height: 100%;
+  height: auto;
   object-fit: contain;
   transition: transform 0.5s ease;
 }
@@ -1081,7 +1083,6 @@ section:nth-child(even) {
 }
 
 .application-item {
-  min-width: 120px;
   text-align: center;
   padding: 20px 15px;
   width: 160px;
@@ -1107,7 +1108,6 @@ section:nth-child(even) {
 .item-icon {
   width: 70px;
   height: 70px;
-  margin: 0 auto;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -1115,6 +1115,7 @@ section:nth-child(even) {
   background-color: #f5f7fa;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
+  margin: 0 auto;
 }
 
 .application-item.active .item-icon {
@@ -1170,7 +1171,7 @@ section:nth-child(even) {
   line-height: 1.8;
   white-space: pre-line;
   color: #555;
-  max-height: 350px;
+  max-height: 450px;
   overflow-y: auto;
   flex: 1;
 }
@@ -1187,14 +1188,6 @@ section:nth-child(even) {
   justify-content: center;
   padding: 20px;
   margin: auto 0;
-}
-
-.detail-image {
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
-  display: block;
-  margin: auto;
 }
 
 .qa-demo {
@@ -1462,21 +1455,6 @@ section:nth-child(even) {
     display: none !important;
   }
 
-  /* 去掉 active 高亮 */
-  .capability-card.active, .capability-card:hover {
-    background-color: white !important;
-    color: #333 !important;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05) !important;
-    transform: none !important;
-  }
-
-  .application-item.active, .application-item:hover {
-    background-color: white !important;
-    color: #333 !important;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05) !important;
-    transform: none !important;
-  }
-
   .capability-cards {
     display: flex;
     flex-wrap: wrap;
@@ -1554,16 +1532,16 @@ section:nth-child(even) {
 
   .detail-right {
     margin-top: 20px;
-    height: 250px;
+    height: auto;
   }
 
   .application-detail .detail-right {
-    height: 250px;
+    height: auto;
   }
 
   .detail-description,
   .application-detail .detail-description {
-    max-height: 220px;
+    height: auto;
   }
 
   .news-items {
@@ -1595,40 +1573,54 @@ section:nth-child(even) {
 @media (max-width: 480px) {
   /* 基础布局调整 */
   .capability-cards {
-    flex-direction: column;
-    gap: 20px;
-    padding: 0 10px;
-    width: 80%;
+    display: flex;       
+    flex-wrap: wrap;     
+    gap: 10px;
+    padding: 0;
+    width: 100%;         
   }
 
   .capability-card {
-    flex: 1 1 100%;
-    max-width: 100%;
-    width: 100%;
+    flex: 1 1 48%; 
+    max-width: 48%;        
+    box-sizing: border-box; 
     margin: 0 auto;
+    padding: 20px 10px;
+  }
+
+  .capability-card:hover {
+    transform: translateY(0);
   }
 
   .card-icon {
-    width: 200px;
-    height: 200px;
+    width: 60px;
+    height: 60px;
   }
 
+
   .application-items {
-    flex-direction: column;
-    gap: 20px;
-    padding: 10px;
-    width:80%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 0;
+    width:100%;
+    justify-content: center;
   }
 
   .application-item {
-    flex: 1 1 100%;
-    max-width: 100%;
+    flex: 1 1 30%;
+    max-width:30%;
     width: 100%;
+    padding: 10px 0;
+  }
+
+  .application-item:hover {
+    transform: translateY(0);
   }
 
   .item-icon {
-    width: 200px;
-    height: 200px;
+    width: 60px;
+    height: 60px;
   }
 
   /* 详情页面调整 */
@@ -1639,25 +1631,22 @@ section:nth-child(even) {
     border-radius: 8px;
   }
 
-  .detail-left, .detail-right,
+  .detail-left,
   .application-detail .detail-left,
   .application-detail .detail-right {
     width: 100%;
+    height: auto;
     margin: 0;
   }
 
   .detail-right {
     margin-top: 15px;
-    height: 200px;
-  }
-
-  .application-detail .detail-right {
-    height: 200px;
+    height: auto;
   }
 
   .detail-description,
   .application-detail .detail-description {
-    max-height: 180px;
+    height: auto;
     font-size: 14px;
     line-height: 1.5;
   }
@@ -1712,9 +1701,14 @@ section:nth-child(even) {
   }
 
   /* 文本内容调整 */
-  .capability-card h3,
-  .application-item h3 {
+  .capability-card h3{
     font-size: 16px;
+    margin: 8px 0;
+    text-align: center;
+  }
+
+  .application-item h3 {
+    font-size: 12px;
     margin: 8px 0;
     text-align: center;
   }
@@ -1756,59 +1750,6 @@ section:nth-child(even) {
 
   .nav-item:last-child, .menu-item:last-child {
     border-bottom: none;
-  }
-}
-
-/* 超小屏幕设备响应式调整 */
-@media (max-width: 320px) {
-  /* 进一步压缩间距 */
-  .capability-detail, .application-detail {
-    padding: 10px;
-    margin: 5px;
-    min-height: 350px;
-  }
-
-  .detail-right {
-    height: 180px;
-  }
-
-  .application-detail .detail-right {
-    height: 180px;
-  }
-
-  .banner-title h1 {
-    font-size: 20px;
-  }
-
-  .news-image {
-    height: 120px;
-  }
-
-  .detail-description,
-  .application-detail .detail-description {
-    max-height: 150px;
-    font-size: 13px;
-  }
-
-  .capability-card h3,
-  .application-item h3 {
-    font-size: 15px;
-  }
-
-  .capability-card p,
-  .application-item p {
-    font-size: 12px;
-  }
-
-  .btn, .button {
-    padding: 6px 12px;
-    font-size: 13px;
-  }
-
-  .banner-content {
-    margin-left: 2%;
-    margin-right: 2%;
-    padding: 0 5px;
   }
 }
 </style> 
