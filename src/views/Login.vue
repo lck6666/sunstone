@@ -1066,7 +1066,7 @@ onUnmounted(() => {
 .input-limit-tip {
   position: absolute;
   right: 10px;
-  top: 40px; /* 根据实际布局调整 */
+  top: 40px;
   font-size: 12px;
   color: #999;
   background: rgba(255, 255, 255, 0.8);
@@ -1105,8 +1105,49 @@ onUnmounted(() => {
   color: #800080;
 }
 
-/* 确保密码输入框内容不会被切换图标遮挡 */
 .password-input-container .form-input {
   padding-right: 40px;
+}
+
+/* 480px以下 */
+@media (max-width: 480px) {
+  .login-content {
+    align-items: flex-start;
+    padding: 40px 15px 40px 15px;
+  }
+  
+  .auth-dialog {
+    padding: 30px 20px;
+    border-radius: 8px;
+    margin-top: 0;
+  }
+  
+  .auth-title {
+    font-size: 1.3em;
+    margin-bottom: 25px;
+  }
+  
+  .auth-tabs {
+    margin-bottom: 25px;
+  }
+  
+  .tab-item {
+    padding: 10px 0;
+    font-size: 14px;
+  }
+  
+  .form-group {
+    margin-bottom: 18px;
+  }
+  
+  .modal {
+    width: 90%;
+    max-width: none;
+    margin: 0 5%;
+  }
+  
+  .modal-body {
+    max-height: 300px;
+  }
 }
 </style>
