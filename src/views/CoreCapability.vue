@@ -125,14 +125,14 @@
 
           <div class="news-items">
             <div class="news-items-container" :style="{ transform: `translateX(${-currentNewsIndex * (300 + 30)}px)` }">
-              <div v-for="(item, index) in newsData" :key="index" class="news-item" @click="openNewsLink(item)">
+              <div v-for="(item, index) in newsData" :key="index" class="news-item">
                 <div class="news-image">
                   <img :src="item.image" alt="新闻图片">
                 </div>
                 <h3>{{ item.title }}</h3>
                 <div class="news-footer">
                   <!-- <p class="news-date">{{ item.date }}</p> -->
-                  <span class="news-link-hint">查看详情 &raquo;</span>
+                  <span class="news-link-hint"  @click="openNewsLink(item)">查看详情 &raquo;</span>
                 </div>
               </div>
             </div>
@@ -990,7 +990,7 @@ section:nth-child(even) {
   overflow: hidden;
   border-radius: 12px;
   /*box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);*/
-  height: 350px;
+  height: auto;
 }
 
 .detail-image {
@@ -1178,15 +1178,14 @@ section:nth-child(even) {
 
 .application-detail .detail-right {
   width: 55%;
-  min-height: 300px;
-  height: 380px;
+  height: auto;
   border-radius: 12px;
   overflow: hidden;
   /*box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);*/
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+  padding: 0;
   margin: auto 0;
 }
 
@@ -1332,6 +1331,7 @@ section:nth-child(even) {
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+  text-align: left;
 }
 
 .news-footer {
@@ -1392,7 +1392,6 @@ section:nth-child(even) {
 
 .qualification-content {
   position: relative;
-  width: 90%;
   margin: 0 auto;
 }
 
@@ -1407,28 +1406,25 @@ section:nth-child(even) {
 .qualification-item {
   width: 200px;
   text-align: center;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
   transition: all 0.3s ease;
 }
 
 .qualification-item:hover {
-  transform: translateY(-10px);
+  transform: translateY(0);
 }
 
 .qualification-item p {
   font-size: 14px;
   line-height: 1.4;
   font-weight: 500;
-  margin-top: 15px;
+  margin-top: 5px;
   color: #444;
 }
 
 .qualification-image {
   width: 100%;
   height: 130px;
-  background-color: #fff;
-  border-radius: 12px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1436,13 +1432,9 @@ section:nth-child(even) {
   transition: all 0.3s ease;
 }
 
-.qualification-image:hover {
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
-}
-
 .qualification-image img {
-  max-width: 90%;
-  max-height: 90%;
+  max-width: 100%;
+  max-height: 100%;
   object-fit: contain;
 }
 
@@ -1520,10 +1512,9 @@ section:nth-child(even) {
     flex-direction: column;
     padding: 20px;
     height: auto;
-    min-height: 500px;
   }
-
-  .detail-left, .detail-right,
+  
+  .detail-right,
   .application-detail .detail-left,
   .application-detail .detail-right {
     width: 100%;
@@ -1585,7 +1576,7 @@ section:nth-child(even) {
     max-width: 48%;        
     box-sizing: border-box; 
     margin: 0 auto;
-    padding: 20px 10px;
+    padding: 10px 30px;
   }
 
   .capability-card:hover {
@@ -1622,17 +1613,25 @@ section:nth-child(even) {
     width: 60px;
     height: 60px;
   }
-
+  
   /* 详情页面调整 */
   .capability-detail, .application-detail {
-    padding: 15px;
-    min-height: 400px;
+    padding: 10px 20px;
     margin: 10px;
     border-radius: 8px;
   }
 
-  .detail-left,
-  .application-detail .detail-left,
+  .detail-left{
+    width: 100%;
+    height: auto;
+  }
+
+  .application-detail .detail-left{
+    width: 100%;
+    height: auto;
+    margin-top: -20px;
+  }
+
   .application-detail .detail-right {
     width: 100%;
     height: auto;
@@ -1663,22 +1662,51 @@ section:nth-child(even) {
   }
 
   .news-item {
-    margin-bottom: 15px;
-    border-radius: 8px;
+    margin-bottom: 10px;
+    border-radius: 16px;
     overflow: hidden;
   }
 
   .news-image {
-    height: 150px;
+    height: 0;
+    overflow: hidden;
     width: 100%;
     object-fit: cover;
+    transition: height 0.5s ease;
   }
 
-  /* 资质区域调整 */
+  /* 展开 */
+  .news-item:hover .news-image,
+  .news-item:active .news-image {
+    height: 150px;
+  }
+
+  .qualification-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+  }
+
   .qualification-item {
-    flex: 1 1 100%;
-    max-width: 100%;
-    margin-bottom: 10px;
+    flex: 1 1 45%;
+    max-width: 45%;
+    width: 100%;
+  }
+
+  .qualification-image{
+    padding: 0px;
+  }
+
+  .qualification-image img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+
+  .qualification-item p{
+    width:auto;
   }
 
   /* 横幅区域调整 */
@@ -1751,5 +1779,6 @@ section:nth-child(even) {
   .nav-item:last-child, .menu-item:last-child {
     border-bottom: none;
   }
+
 }
 </style> 
