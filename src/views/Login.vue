@@ -871,7 +871,7 @@ onUnmounted(() => {
   
 <style scoped>
 .page-container {
-  min-height: 100vh;
+  height: auto;
   display: flex;
   flex-direction: column;
   background: #f8f8f8;
