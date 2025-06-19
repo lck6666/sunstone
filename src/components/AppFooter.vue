@@ -177,6 +177,7 @@ export default {
   
   .footer-left {
     justify-content: center;
+    padding-left: 20%;
     gap: 40px;
   }
   
@@ -265,40 +266,6 @@ export default {
     padding-top: 10px;
     font-size: 11px;
     line-height: 1.8;
-  }
-}
-
-/* 超小屏幕 (最大 320px) */
-@media (max-width: 320px) {
-  .footer-content {
-    padding: 0 10px;
-  }
-  
-  .footer-left {
-    gap: 20px;
-  }
-  
-  .footer-logo p {
-    font-size: 13px;
-  }
-  
-  .qrcode img {
-    width: 70px;
-    height: 70px;
-  }
-  
-  .footer-section h3 {
-    font-size: 14px;
-  }
-  
-  .footer-section p {
-    font-size: 11px;
-  }
-  
-  .copyright {
-    font-size: 10px;
-    padding-left: 5px;
-    padding-right: 5px;
   }
 }
 </style>
