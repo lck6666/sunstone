@@ -1599,7 +1599,7 @@ body {
     padding: 15px;
     margin-bottom: 15px;
     min-height: 360px;
-    height: 80%;
+    height: 60vh;
   }
   .main-dialog {
     padding: 15px;
@@ -1675,7 +1675,6 @@ body {
     font-size: 14px;
   }
   .chat-container {
-    min-height: 300px;
     height: 55vh;
   }
   .main-dialog {

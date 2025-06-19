@@ -1521,12 +1521,25 @@ section:nth-child(even) {
     height: auto;
   }
 
+  .detail-left {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
   .detail-right {
     margin-top: 20px;
     height: auto;
   }
 
   .application-detail .detail-right {
+    margin-top: 20px;
+    height: auto;
+  }
+
+  .application-detail .detail-left {
+    margin-top: -20px;
     height: auto;
   }
 
