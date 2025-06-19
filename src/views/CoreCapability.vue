@@ -1496,11 +1496,23 @@ section:nth-child(even) {
   .news-item {
     flex: 1 1 100%;
     max-width: 100%;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
+    border-radius: 16px;
+    overflow: hidden;
     height: auto;
   }
 
   .news-image {
+    height: 0;
+    overflow: hidden;
+    width: 100%;
+    object-fit: cover;
+    transition: height 0.5s ease;
+  }
+
+  /* 展开 */
+  .news-item:hover .news-image,
+  .news-item:active .news-image {
     height: 180px;
   }
 
