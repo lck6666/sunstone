@@ -573,7 +573,7 @@ logging.basicConfig(
 
 # 配置信息（请修改为你的公众号信息）
 WECHAT_APPID = "wxcf66c3b0f23704e7"
-WECHAT_SECRET = "45f6e89da486a9678b92ae1a9411b846"
+WECHAT_SECRET = "45f6e89da486a9678b92ae1a9411b846" #替换成自己的Appid和AppSecret，同时别忘了把自己ip设置成白名单‼️
 OUTPUT_FILE = "wechat_articles.txt"
 TOKEN_CACHE_FILE = "access_token_cache.json"
 
