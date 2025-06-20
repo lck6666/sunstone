@@ -39,8 +39,8 @@
               </button>
             </div>            
           </div>
+          <div class="feedback-link" @click="showFeedbackModal">意见反馈</div>
         </div>
-        <div class="feedback-link" @click="showFeedbackModal">意见反馈</div>
       </main>
       <!-- 反馈意见弹窗，初始为隐藏 -->
       <div class="feedback-modal" v-if="showFeedback">
@@ -273,7 +273,7 @@ html, body, #app {
 .main-content {
   flex: 1;
   padding: 40px 20px 20px 20px;
-  height:100vh;
+  min-height:100vh;
   background: #f8f8f8;
 }
 
@@ -526,6 +526,7 @@ html, body, #app {
   .dialog-wrapper {
     max-width: 100%;
     margin: 0;
+    height: 60%;
   }
   .dialog-greeting {
     margin-bottom: 20px;
@@ -534,16 +535,14 @@ html, body, #app {
   .chat-container {
     padding: 15px;
     margin-bottom: 15px;
-    min-height: 360px;
-    height: 60vh;
+    min-height: 400px;
+    max-height: 600px;
   }
   .main-dialog {
     padding: 15px;
-    height: 150px;
+    height: 120px;
   }
   .action-container {
-    flex-direction: column;
-    align-items: stretch;
     gap: 10px;
     margin-top: 15px;
   }
@@ -553,7 +552,7 @@ html, body, #app {
     height:30px;
   }
   .start-button {
-    width: 100%;
+    width: 120px;
     padding: 10px;
   }
   .question-title {
@@ -583,13 +582,15 @@ html, body, #app {
 }
 
 @media (max-width: 480px) {
-  /* 调整展开宽度，如需更小也可自行修改 */
   .sidebar:not(.collapsed) {
     width: 180px;
   }
-  /* 重新设置 content-container margin-left */
   .content-container {
     margin-left: 50px !important;
+  }
+  .chat-container {
+    min-height: 450px;
+    max-height: 600px;
   }
   .sidebar:not(.collapsed) ~ .content-container {
     margin-left: 180px !important;
@@ -604,15 +605,12 @@ html, body, #app {
   .question-title {
     font-size: 13px;
   }
-  .tags-group {
-    gap: 8px;
-  }
+
   .start-button {
     padding: 8px;
     font-size: 14px;
-  }
-  .chat-container {
-    height: 55vh;
+    width: 80px;
+    font-size: 12px;
   }
   .main-dialog {
     height: auto;
@@ -624,6 +622,19 @@ html, body, #app {
 
   .sidebar-item:first-child {
     margin-left: -4px; 
+  }
+
+  .tags-group {
+    gap: 8px;
+  }
+
+  .tag-item {
+    border-radius: 8px;
+    font-size: 12px;
+    line-height: 12px;
+    height:auto;
+    padding: 5px 10px;
+    width:50px;
   }
 }
 

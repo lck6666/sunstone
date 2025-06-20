@@ -97,8 +97,10 @@
               </button>
             </div>
           </div>
+          
+          <div class="feedback-link" @click="showFeedbackModal">意见反馈</div>
         </div>
-        <div class="feedback-link" @click="showFeedbackModal">意见反馈</div>
+
       </main>
       
       <!-- 参考资料弹窗 - 调整为绝对定位 -->
@@ -177,7 +179,7 @@ const toggleTag = (tag) => {
 const questionText = ref('请输入您的问题');
 const questionInput = ref(null);
 const initialTextHeight = 40;
-const maxTextAreaHeight = 150;
+const maxTextAreaHeight = 120;
 const textareaHeight = ref(initialTextHeight);
 const isCollapsed = ref(true);
 const isEditingQuestion = ref(true); // 新增定义
@@ -1093,7 +1095,7 @@ body {
   padding: 40px 20px 20px 20px;
   background: #f8f8f8;
   position: relative;
-  height: 100vh;
+  min-height: 100vh;
 }
 
 /* 对话框容器 */
@@ -1112,7 +1114,7 @@ body {
 
 /* 聊天记录区域 */
 .chat-container {
-  height: 300px;
+  min-height: 300px;
   overflow-y: auto;
   background: white;
   border-radius: 12px;
@@ -1277,7 +1279,7 @@ body {
 
 .question-container {
   min-height: 40px;
-  max-height: 150px;
+  max-height: 120px;
 }
 
 /* 文本框 */
@@ -1362,6 +1364,7 @@ body {
   text-align: center;
   margin-top: 25px;
   display: block;
+  position: relative;
 }
 
 .feedback-modal {
@@ -1399,8 +1402,8 @@ body {
 
 .feedback-modal-body textarea {
   width: 100%;
-  height: 150px; /* 固定高度 */
-  resize: none; /* 禁止调整大小 */
+  height: 150px;
+  resize: none; 
   box-sizing: border-box;
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -1598,16 +1601,14 @@ body {
   .chat-container {
     padding: 15px;
     margin-bottom: 15px;
-    min-height: 360px;
-    height: 60vh;
+    min-height: 400px;
+    max-height: 600px;
   }
   .main-dialog {
     padding: 15px;
-    height: 150px;
+    height: auto;
   }
   .action-container {
-    flex-direction: column;
-    align-items: stretch;
     gap: 10px;
     margin-top: 15px;
   }
@@ -1617,7 +1618,7 @@ body {
     height:30px;
   }
   .start-button {
-    width: 100%;
+    width: 80px;
     padding: 10px;
   }
   .question-title {
@@ -1646,11 +1647,9 @@ body {
 }
 
 @media (max-width: 480px) {
-  /* 调整展开宽度，如需更小也可自行修改 */
   .sidebar:not(.collapsed) {
     width: 180px;
   }
-  /* 重新设置 content-container margin-left */
   .content-container {
     margin-left: 50px !important;
   }
@@ -1661,21 +1660,22 @@ body {
     padding: 12px 16px;
     font-size: 14px;
   }
+  .chat-container {
+    min-height: 450px;
+    max-height: 600px;
+  }
   .dialog-greeting {
     font-size: 1.1em;
   }
   .question-title {
     font-size: 13px;
   }
-  .tags-group {
-    gap: 8px;
-  }
+
   .start-button {
     padding: 8px;
     font-size: 14px;
-  }
-  .chat-container {
-    height: 55vh;
+    width: 40px;
+    font-size: 12px;
   }
   .main-dialog {
     height: auto;
@@ -1683,6 +1683,21 @@ body {
 
   .feedback-modal-body textarea {
     height: 100px;
+  }
+
+  .tags-group {
+    gap: 8px;
+    overflow: hidden;
+    height: auto;
+  }
+
+  .tag-item {
+    border-radius: 8px;
+    font-size: 12px;
+    line-height: 12px;
+    height:auto;
+    padding: 5px 10px;
+    width:50px;
   }
 }
 
