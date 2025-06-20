@@ -50,3 +50,7 @@ Learn more about IDE Support for Vue in the [Vue Docs Scaling up Guide](https://
 # 模拟测试
 请注意这里使用的数据都是本地数据，用户为testuser和Test1234，问答返回结果也是默认值
 
+# 新闻接口
+update-news-data.js 1254行修改新闻上限个数
+text.py 575 576替换成自己的Appid和AppSecret，同时别忘了把自己ip设置成白名单‼️
+然后npm run dev运行

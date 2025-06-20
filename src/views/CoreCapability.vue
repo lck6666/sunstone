@@ -366,33 +366,21 @@ export default {
           detailImage: SpatialDataAnalysisDetailImg
         }
       ],
+
+      
       newsData: [
-        { 
-          title: '首张矿山行业数据知识产权登记证书落地煤科总院', 
-          image: News1Img,
-          link: 'https://mp.weixin.qq.com/s/QNXQogPtfYFT3EubApio-A'
-        },
-        { 
-          title: '煤科总院受邀参加中国人工智能产业发展联盟第十三次全会', 
-          image: News2Img,
-          link: 'https://mp.weixin.qq.com/s/xl_5TXxKdaMKOjIFRVIcJg'
-        },
-        { 
-          title: '煤科总院"太阳石矿山大模型"通过中国信通院安全认证', 
-          image: News3Img,
-          link: 'https://mp.weixin.qq.com/s/BTfDxkBEyDOaahMr3JYQjQ'
-        },
-        { 
-          title: '煤科总院矿山人工智能研究院参加2024世界人工智能大会', 
-          image: News4Img,
-          link: 'https://mp.weixin.qq.com/s/0MCgr_e1WmSfDxr_BN56gA'
-        },
-        { 
-          title: '煤科总院"太阳石矿山大模型"入选2024煤炭科技十大新闻', 
-          image: News5Img,
-          link: 'https://mp.weixin.qq.com/s/dqQuIzUJ_-DDw3nYpGJqUg'
-        }
+          { 
+              title: 'æµè¯-1', 
+              image: 'https://mmbiz.qpic.cn/mmbiz_jpg/nl8lTtRbB7cDp31vRIV7gP6FgxWCFXWpUvrz853oSVvvgJvTKvUFia2S4aQe4YXYXriaCLTaPS6CcaxGtrd1YU9w/0?wx_fmt=jpeg',
+              link: 'http://mp.weixin.qq.com/s?__biz=MzU0NDg2NTExNA==&mid=2247484131&idx=1&sn=533f2cea0656a72f10af1feffec4973d&chksm=fb74ecd6cc0365c0101f703e68c5f8fbffef7ddf17fe7bb0918cdef4afb755f88e5af845bfef#rd'
+          },
+          { 
+              title: 'test-3', 
+              image: 'https://mmbiz.qpic.cn/mmbiz_jpg/nl8lTtRbB7cDp31vRIV7gP6FgxWCFXWpJ1GyXXrTSEBSmI8zZURKYv2JpTqGQSml4fw8ib4h5V4eyoyINFtfmaA/0?wx_fmt=jpeg',
+              link: 'http://mp.weixin.qq.com/s?__biz=MzU0NDg2NTExNA==&mid=2247484141&idx=1&sn=aa70e14622a2ff8d596428f8381f7402&chksm=fb74ecd8cc0365ce964565ad9363d365132a869c33da3afdd7b2fa4ad3208dfa73464c31c8a3#rd'
+          }
       ],
+
       qualificationData: [
         { title: '发起人工智能智库网络（AITC）', image: Cert1Img },
         { title: '全国信标委煤炭行业数字化转型专题组组长单位', image: Cert2Img },
