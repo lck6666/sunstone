@@ -557,12 +557,152 @@
 
 
 
+# import requests
+# import json
+# import os
+# from datetime import datetime
+# import logging
+# import time
+
+# # 配置日志
+# logging.basicConfig(
+#     level=logging.INFO,
+#     format='%(asctime)s - %(levelname)s - %(message)s',
+#     filename='wechat_article_fetcher.log'
+# )
+
+# # 配置信息（请修改为你的公众号信息）
+# WECHAT_APPID = "wxcf66c3b0f23704e7"
+# WECHAT_SECRET = "45f6e89da486a9678b92ae1a9411b846"
+# OUTPUT_FILE = "wechat_articles.txt"
+# TOKEN_CACHE_FILE = "access_token_cache.json"
+
+# def get_access_token():
+#     """获取并缓存微信API访问令牌"""
+#     try:
+#         # 尝试从缓存加载
+#         if os.path.exists(TOKEN_CACHE_FILE):
+#             with open(TOKEN_CACHE_FILE, 'r') as f:
+#                 cache = json.load(f)
+#                 if cache['expire_time'] > time.time() + 60:  # 提前60秒刷新
+#                     logging.info("从缓存加载access_token")
+#                     return cache['access_token']
+
+#         # 重新获取令牌
+#         logging.info("请求新的access_token")
+#         url = f"https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid={WECHAT_APPID}&secret={WECHAT_SECRET}"
+#         response = requests.get(url).json()
+
+#         if 'access_token' in response:
+#             # 保存到缓存
+#             with open(TOKEN_CACHE_FILE, 'w') as f:
+#                 json.dump({
+#                     'access_token': response['access_token'],
+#                     'expire_time': time.time() + response['expires_in']
+#                 }, f)
+#             return response['access_token']
+#         else:
+#             logging.error(f"获取access_token失败: {response}")
+#             raise Exception(f"获取access_token失败: {response}")
+
+#     except Exception as e:
+#         logging.error(f"获取access_token时出错: {e}")
+#         raise
+
+# def fetch_articles(access_token):
+#     """获取公众号已发布文章列表"""
+#     try:
+#         logging.info("开始获取文章列表")
+#         url = f"https://api.weixin.qq.com/cgi-bin/freepublish/batchget?access_token={access_token}"
+#         data = {
+#             "offset": 0,
+#             "count": 20,  # 最多获取20篇
+#             "no_content": 0  # 返回文章内容
+#         }
+
+#         response = requests.post(url, json=data).json()
+
+#         # 调试：打印完整响应结构
+#         logging.debug(f"接口原始响应: {response}")
+
+#         if 'item' in response:
+#             articles = []
+#             for item in response['item']:
+#                 # 检查必要字段是否存在
+#                 if 'content' in item and 'news_item' in item['content']:
+#                     for news in item['content']['news_item']:
+#                         # 确保标题、图片链接和URL存在
+#                         title = news.get('title', '无标题')
+#                         image = news.get('thumb_url', '')
+#                         url = news.get('url', '无链接')
+#                         articles.append({
+#                             'title': title,
+#                             'image': image,
+#                             'url': url
+#                         })
+#             logging.info(f"成功获取 {len(articles)} 篇文章")
+#             return articles
+#         else:
+#             logging.warning(f"未找到文章: {response}")
+#             return []
+
+#     except Exception as e:
+#         logging.error(f"获取文章时出错: {e}")
+#         raise
+
+# def save_articles_to_file(articles):
+#     """将文章信息保存到文件，每行格式为 标题|图片链接|文章链接"""
+#     try:
+#         if not articles:
+#             logging.info("没有文章需要保存")
+#             return
+
+#         with open(OUTPUT_FILE, 'w', encoding='utf-8') as f:
+#             for article in articles:
+#                 f.write(f"{article['title']}|{article['image']}|{article['url']}\n")
+
+#         logging.info(f"成功保存 {len(articles)} 篇文章到 {OUTPUT_FILE}")
+
+#     except Exception as e:
+#         logging.error(f"保存文章到文件时出错: {e}")
+#         raise
+
+# def main():
+#     """主函数：获取文章信息并保存"""
+#     try:
+#         print("微信公众号文章信息提取工具启动")
+#         print(f"日志将保存在: wechat_article_fetcher.log")
+#         print(f"文章信息将保存在: {OUTPUT_FILE}")
+#         print("-" * 50)
+
+#         logging.info("开始执行主任务")
+#         access_token = get_access_token()
+#         articles = fetch_articles(access_token)
+#         save_articles_to_file(articles)
+
+#         print(f"成功获取并保存 {len(articles)} 篇文章信息")
+#         logging.info("主任务执行完成")
+
+#     except Exception as e:
+#         print(f"程序执行失败: {e}")
+#         logging.critical(f"程序执行失败: {e}")
+
+# if __name__ == "__main__":
+#     main()
+
+
+
+
+
+
+
+
 import requests
+import time
 import json
 import os
-from datetime import datetime
+from datetime import datetime, timedelta
 import logging
-import time
 
 # 配置日志
 logging.basicConfig(
@@ -573,7 +713,7 @@ logging.basicConfig(
 
 # 配置信息（请修改为你的公众号信息）
 WECHAT_APPID = "wxcf66c3b0f23704e7"
-WECHAT_SECRET = "45f6e89da486a9678b92ae1a9411b846" #替换成自己的Appid和AppSecret，同时别忘了把自己ip设置成白名单‼️
+WECHAT_SECRET = "45f6e89da486a9678b92ae1a9411b846"
 OUTPUT_FILE = "wechat_articles.txt"
 TOKEN_CACHE_FILE = "access_token_cache.json"
 
@@ -630,15 +770,20 @@ def fetch_articles(access_token):
             for item in response['item']:
                 # 检查必要字段是否存在
                 if 'content' in item and 'news_item' in item['content']:
+                    # 获取文章创建时间（如果存在）
+                    create_time = item.get('create_time', 0)
+                    formatted_time = datetime.fromtimestamp(create_time).strftime('%Y-%m-%d %H:%M:%S') if create_time else '未知时间'
+
                     for news in item['content']['news_item']:
-                        # 确保标题、图片链接和URL存在
+                        # 确保标题、URL和图片链接存在
                         title = news.get('title', '无标题')
-                        image = news.get('thumb_url', '')
                         url = news.get('url', '无链接')
+                        thumb_url = news.get('thumb_url', '无图片链接')
+
                         articles.append({
                             'title': title,
-                            'image': image,
-                            'url': url
+                            'url': url,
+                            'thumb_url': thumb_url
                         })
             logging.info(f"成功获取 {len(articles)} 篇文章")
             return articles
@@ -651,42 +796,77 @@ def fetch_articles(access_token):
         raise
 
 def save_articles_to_file(articles):
-    """将文章信息保存到文件，每行格式为 标题|图片链接|文章链接"""
+    """将文章保存到文件，并去重"""
     try:
         if not articles:
             logging.info("没有文章需要保存")
             return
 
-        with open(OUTPUT_FILE, 'w', encoding='utf-8') as f:
-            for article in articles:
-                f.write(f"{article['title']}|{article['image']}|{article['url']}\n")
+        # 读取现有的URL
+        existing_urls = set()
+        if os.path.exists(OUTPUT_FILE):
+            with open(OUTPUT_FILE, 'r', encoding='utf-8') as f:
+                for line in f:
+                    parts = line.strip().split('|')
+                    if len(parts) > 2:
+                        existing_urls.add(parts[2])
 
-        logging.info(f"成功保存 {len(articles)} 篇文章到 {OUTPUT_FILE}")
+        # 过滤掉重复的文章
+        unique_articles = []
+        for article in articles:
+            if article['url'] not in existing_urls:
+                unique_articles.append(article)
+                existing_urls.add(article['url'])
+
+        if not unique_articles:
+            logging.info("没有新文章需要保存")
+            return
+
+        # 追加新文章到文件
+        with open(OUTPUT_FILE, 'a', encoding='utf-8') as f:
+            for article in unique_articles:
+                f.write(f"{article['title']}|{article['thumb_url']}|{article['url']}\n")
+
+        logging.info(f"成功保存 {len(unique_articles)} 篇新文章到 {OUTPUT_FILE}")
 
     except Exception as e:
         logging.error(f"保存文章到文件时出错: {e}")
         raise
 
-def main():
-    """主函数：获取文章信息并保存"""
-    try:
-        print("微信公众号文章信息提取工具启动")
-        print(f"日志将保存在: wechat_article_fetcher.log")
-        print(f"文章信息将保存在: {OUTPUT_FILE}")
-        print("-" * 50)
+def get_time_until_noon():
+    """计算距离今天中午12点的秒数"""
+    now = datetime.now()
+    target = now.replace(hour=12, minute=0, second=0, microsecond=0)
 
+    # 如果已经过了今天的12点，计算到明天12点的时间
+    if now > target:
+        target += timedelta(days=1)
+
+    delta = target - now
+    return delta.total_seconds()
+
+def main_task():
+    """执行主要任务：获取文章并保存"""
+    try:
         logging.info("开始执行主任务")
         access_token = get_access_token()
         articles = fetch_articles(access_token)
         save_articles_to_file(articles)
-
-        print(f"成功获取并保存 {len(articles)} 篇文章信息")
         logging.info("主任务执行完成")
-
+        return len(articles)
     except Exception as e:
-        print(f"程序执行失败: {e}")
-        logging.critical(f"程序执行失败: {e}")
+        logging.error(f"主任务执行失败: {e}")
+        raise
+
+def schedule_task():
+    """安排定时任务"""
+    while True:
+        try:
+            seconds_until_noon = get_time_until_noon()
+            # 这里可以添加具体的定时逻辑，例如 time.sleep(seconds_until_noon)
+            pass
+        except Exception as e:
+            logging.error(f"定时任务出错: {e}")
 
 if __name__ == "__main__":
-    main()
-
+    main_task()

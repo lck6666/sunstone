@@ -1066,6 +1066,217 @@
 
 
 
+// import { execSync } from 'child_process';
+// import fs from 'fs';
+// import path from 'path';
+// import { fileURLToPath } from 'url';
+
+// // 获取当前脚本所在目录
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = path.dirname(__filename);
+
+// // 1. 执行 test.py 文件
+// try {
+//     execSync('python test.py');
+//     console.log('test.py 文件执行成功');
+// } catch (error) {
+//     console.error('执行 test.py 文件时出错:', error.message);
+// }
+
+// // 2. 从 wechat_articles.txt 文件中读取所有的文章信息
+// const filePath = path.join(__dirname, 'wechat_articles.txt');
+// let articles = [];
+// try {
+//     const data = fs.readFileSync(filePath, 'utf8');
+//     const lines = data.split('\n');
+//     for (const line of lines) {
+//         if (line.includes('|')) {
+//             const parts = line.split('|');
+//             if (parts.length === 3) {
+//                 const title = parts[0].trim();
+//                 const image = parts[1].trim();
+//                 const url = parts[2].trim();
+//                 articles.push({ title, image, url });
+//             }
+//         }
+//     }
+// } catch (error) {
+//     console.error('读取 wechat_articles.txt 文件时出错:', error.message);
+// }
+
+// // 3. 把读取到的文章信息存放到 CoreCapability.vue 中的 newsData 模块下
+// if (articles.length > 0) {
+//     const vueFilePath = path.join(__dirname, 'src', 'views', 'CoreCapability.vue');
+//     try {
+//         let vueContent = fs.readFileSync(vueFilePath, 'utf8');
+//         const newsDataStart = vueContent.indexOf('newsData: [');
+//         const newsDataEnd = vueContent.indexOf(']', newsDataStart);
+//         if (newsDataStart !== -1 && newsDataEnd !== -1) {
+//             const originalNewsDataText = vueContent.slice(newsDataStart + 'newsData: ['.length, newsDataEnd);
+//             const originalNewsData = originalNewsDataText.match(/\{[\s\S]*?\}/g) || [];
+//             const existingUrls = new Set(articles.map(article => article.url));
+//             const newNewsData = [];
+
+//             // 处理新的文章数据，去重添加到 newNewsData 前面
+//             articles.forEach((article, index) => {
+//                 const title = article.title;
+//                 const image = article.image ? `'${article.image}'` : `News${(index % 5) + 1}Img`;
+//                 const link = article.url;
+//                 if (!existingUrls.has(link)) {
+//                     existingUrls.add(link);
+//                     const newItem = `{ 
+//                         title: '${title}', 
+//                         image: ${image},
+//                         link: '${link}'
+//                     }`;
+//                     newNewsData.unshift(newItem);
+//                 }
+//             });
+
+//             // 处理原有的 newsData，只保留 URL 在 txt 文件中的项
+//             originalNewsData.forEach(item => {
+//                 const urlMatch = item.match(/link:\s*'([^']+)'/);
+//                 if (urlMatch) {
+//                     const url = urlMatch[1];
+//                     if (existingUrls.has(url)) {
+//                         newNewsData.push(item);
+//                     }
+//                 }
+//             });
+
+//             const updatedNewsData = `newsData: [
+//                 ${newNewsData.join(',\n')}
+//             ]`;
+
+//             vueContent = vueContent.slice(0, newsDataStart) + updatedNewsData + vueContent.slice(newsDataEnd + 1);
+//             fs.writeFileSync(vueFilePath, vueContent, 'utf8');
+//             console.log('CoreCapability.vue 文件更新成功');
+//         } else {
+//             console.error('未找到 newsData 部分');
+//         }
+//     } catch (error) {
+//         console.error('更新 CoreCapability.vue 文件时出错:', error.message);
+//     }
+// } else {
+//     console.log('未读取到有效的文章信息');
+// }
+
+
+
+
+
+
+
+// import { execSync } from 'child_process';
+// import fs from 'fs';
+// import path from 'path';
+// import { fileURLToPath } from 'url';
+
+// // 获取当前脚本所在目录
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = path.dirname(__filename);
+
+// // 1. 执行 test.py 文件
+// try {
+//     execSync('python test.py');
+//     console.log('test.py 文件执行成功');
+// } catch (error) {
+//     console.error('执行 test.py 文件时出错:', error.message);
+// }
+
+// // 2. 从 wechat_articles.txt 文件中读取所有的文章信息
+// const filePath = path.join(__dirname, 'wechat_articles.txt');
+// let articles = [];
+// try {
+//     const data = fs.readFileSync(filePath, 'utf8');
+//     const lines = data.split('\n');
+//     for (const line of lines) {
+//         if (line.includes('|')) {
+//             const parts = line.split('|');
+//             if (parts.length === 3) {
+//                 const title = parts[0].trim();
+//                 const image = parts[1].trim();
+//                 const url = parts[2].trim();
+//                 articles.push({ title, image, url });
+//             }
+//         }
+//     }
+// } catch (error) {
+//     console.error('读取 wechat_articles.txt 文件时出错:', error.message);
+// }
+
+// // 3. 把读取到的文章信息存放到 CoreCapability.vue 中的 newsData 模块下
+// if (articles.length > 0) {
+//     const vueFilePath = path.join(__dirname, 'src', 'views', 'CoreCapability.vue');
+//     try {
+//         let vueContent = fs.readFileSync(vueFilePath, 'utf8');
+//         const newsDataStart = vueContent.indexOf('newsData: [');
+//         const newsDataEnd = vueContent.indexOf(']', newsDataStart);
+//         if (newsDataStart !== -1 && newsDataEnd !== -1) {
+//             const originalNewsDataText = vueContent.slice(newsDataStart + 'newsData: ['.length, newsDataEnd);
+//             const originalNewsData = originalNewsDataText.match(/\{[\s\S]*?\}/g) || [];
+//             const existingUrls = new Set();
+//             const newNewsData = [];
+
+//             // 处理新的文章数据，去重添加到 newNewsData 前面
+//             articles.forEach((article, index) => {
+//                 const title = article.title;
+//                 const image = article.image ? `'${article.image}'` : `News${(index % 5) + 1}Img`;
+//                 const link = article.url;
+//                 if (!existingUrls.has(link)) {
+//                     existingUrls.add(link);
+//                     const newItem = `{ 
+//                         title: '${title}', 
+//                         image: ${image},
+//                         link: '${link}'
+//                     }`;
+//                     newNewsData.unshift(newItem);
+//                 }
+//             });
+
+//             // 处理原有的 newsData，只保留 URL 在 txt 文件中的项且去重
+//             originalNewsData.forEach(item => {
+//                 const urlMatch = item.match(/link:\s*'([^']+)'/);
+//                 if (urlMatch) {
+//                     const url = urlMatch[1];
+//                     if (existingUrls.has(url)) {
+//                         return; // 如果已经存在，跳过
+//                     }
+//                     const articleInTxt = articles.find(art => art.url === url);
+//                     if (articleInTxt) {
+//                         existingUrls.add(url);
+//                         newNewsData.push(item);
+//                     }
+//                 }
+//             });
+
+//             // 如果总数超过 10 条，只保留前 10 条
+//             if (newNewsData.length > 10) {
+//                 newNewsData.length = 10;
+//             }
+
+//             const updatedNewsData = `newsData: [
+//                 ${newNewsData.join(',\n')}
+//             ]`;
+
+//             vueContent = vueContent.slice(0, newsDataStart) + updatedNewsData + vueContent.slice(newsDataEnd + 1);
+//             fs.writeFileSync(vueFilePath, vueContent, 'utf8');
+//             console.log('CoreCapability.vue 文件更新成功');
+//         } else {
+//             console.error('未找到 newsData 部分');
+//         }
+//     } catch (error) {
+//         console.error('更新 CoreCapability.vue 文件时出错:', error.message);
+//     }
+// } else {
+//     console.log('未读取到有效的文章信息');
+// }
+
+
+
+
+
+
 import { execSync } from 'child_process';
 import fs from 'fs';
 import path from 'path';
@@ -1114,7 +1325,7 @@ if (articles.length > 0) {
         if (newsDataStart !== -1 && newsDataEnd !== -1) {
             const originalNewsDataText = vueContent.slice(newsDataStart + 'newsData: ['.length, newsDataEnd);
             const originalNewsData = originalNewsDataText.match(/\{[\s\S]*?\}/g) || [];
-            const existingUrls = new Set(articles.map(article => article.url));
+            const existingUrls = new Set();
             const newNewsData = [];
 
             // 处理新的文章数据，去重添加到 newNewsData 前面
@@ -1133,16 +1344,26 @@ if (articles.length > 0) {
                 }
             });
 
-            // 处理原有的 newsData，只保留 URL 在 txt 文件中的项
+            // 处理原有的 newsData，只保留 URL 在 txt 文件中的项且去重
             originalNewsData.forEach(item => {
                 const urlMatch = item.match(/link:\s*'([^']+)'/);
                 if (urlMatch) {
                     const url = urlMatch[1];
                     if (existingUrls.has(url)) {
+                        return; // 如果已经存在，跳过
+                    }
+                    const articleInTxt = articles.find(art => art.url === url);
+                    if (articleInTxt) {
+                        existingUrls.add(url);
                         newNewsData.push(item);
                     }
                 }
             });
+
+            // 如果总数超过 10 条，只保留前 10 条
+            if (newNewsData.length > 10) {
+                newNewsData.length = 10;
+            }
 
             const updatedNewsData = `newsData: [
                 ${newNewsData.join(',\n')}
